@@ -17,4 +17,12 @@ You would only need to use one of these models (Adey or Buenrostro) and the mode
 
 # Instructions
 
+These instructions will help you apply our models as they are. This page will be updated to describe how you can train your own model from your own ATAC-seq data. 
+
+## The count matrix
+
+## Loading a seqbias model
+
+## Applying the model to a count matrix
+
 
