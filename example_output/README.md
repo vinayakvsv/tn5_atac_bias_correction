@@ -3,7 +3,7 @@
 We ran the following script -- we used a version of the Rscript in which we hardcoded the input of models (this script is available in our `correct_bias` folder
 
 ```
-Rscript /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/seqbias_atac_orchestra_setmodels.R \
+Rscript ./seqbias_atac_orchestra_setmodels.R \
 /n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa \
 /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.pos.sorted.bam \
 /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.neg.sorted.bam \
