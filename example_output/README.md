@@ -18,11 +18,11 @@ MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo
 # files containing footprint stats before footprint
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection_neg.kmer_freq_before_correction.pdf # k-mer frequencies before correction on the negative strand
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection_pos.kmer_freq_before_correction.pdf # k-mer frequencies before correction on the negative strand
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.ppm $ 
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.sb.ppm.neg.before.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.sb.ppm.pos.before.Robject
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.seqbias.inputs.neg.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.seqbias.inputs.pos.Rlist
+MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.ppm # a table containing base transposition frequencies over each position of the aggregated intervals
+MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.sb.ppm.neg.before.Rlist # Rlist containing information of .ppm
+MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.sb.ppm.pos.before.Robject # Robject containing information of .ppm
+MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.seqbias.inputs.neg.Rlist # Inputs in an Rlist for the negative-strand correction
+MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.seqbias.inputs.pos.Rlist # Inputs in an Rlist for the positive-strand correction
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.before_correction.shifted_freq.txt 
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimobefore.footprint.pdf # PDF containing the footprint computed
 
