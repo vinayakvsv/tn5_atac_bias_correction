@@ -47,8 +47,10 @@ MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.sb.ppm.pos.after.R
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.seqbias.corrected.neg.Rlist
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.seqbias.corrected.pos.Rlist
 
-# 
+# depicts side-by-side plots of the footprint before and after model application
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.footprint.pdf
 
-# ../
+# depicts the footprint after applying the native-ATAC-seq model, along with spline models fitted to the transposition pattern for occupancy profiling
+../MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.pdf
+
 ```
