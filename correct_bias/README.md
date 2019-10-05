@@ -18,30 +18,20 @@ If you wish to identify transcription factor binding site motif instances, you c
 
 ## Command
 
-We have provided a single command to implement a model of interest
+We have provided a single command to implement a model of interest. Note that we require two models, one for the positive-stranded reads and one for the negative stranded reads. Given our observation that the Tn5 bias is identical for positive and negative strands, you can input the same model for those options
 
 ```
-Rscript /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/seqbias_atac_orchestra_setmodels.R \
+Rscript ./seqbias_atac_orchestra.R \
 <reference genome FASTA> \
 <positive-strand BAM> \
 <negative-strand BAM> \
 <BED file with motif instances> \
 <length of motif> \
-<number of bases to clip from the positive and negative strands of the intervals> \
 <name of output> \
-<seqbias model that you wish to apply>
+<seqbias model that you wish to apply for positive strand> \
+<seqbias model that you wish to apply for negative strand>
 ```
 
-This script will automatically compute sequnces
+This script will automatically compute transposition frequencies for 100 bases on either side of your motif instances.  
 
-Example:
-```
-Rscript /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/seqbias_atac_orchestra_setmodels.R \
-/n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa \
-/home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.pos.sorted.bam \
-/home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.neg.sorted.bam \
-/home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/intervals/motifs_intersect_macs2peaks/intersect_SRR891268.narrow/JASPAR_core_vertebrate_nonoredundnant/bedfiles/BED6/MA00/MA0027.2_EN1.motif.meme.fimo_out.BED6.fimo.bed \
-7 \
-MA0027.2_EN1.motif.meme.fimo_out.BED6.fimo \
-4
-```
+
