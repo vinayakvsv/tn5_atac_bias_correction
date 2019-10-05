@@ -23,13 +23,12 @@ MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.sb.ppm.neg.before.R
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.sb.ppm.pos.before.Robject # Robject containing information of .ppm
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.seqbias.inputs.neg.Rlist # Inputs in an Rlist for the negative-strand correction
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.seqbias.inputs.pos.Rlist # Inputs in an Rlist for the positive-strand correction
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.before_correction.shifted_freq.txt 
+MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.before_correction.shifted_freq.txt # contains the Tn5 transposition frequencies over each position of the aggregated intervals. The "before" footprint is computed from this file
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimobefore.footprint.pdf # PDF containing the footprint computed
 
 # 
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.after_buenrostromodel.shifted_freq.txt
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimoafter.footprint.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.after_shendurechr22model.shifted_freq.txt
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.footprint.pdf
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro_neg.kmer_freq_after_correction.pdf
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro_pos.kmer_freq_after_correction.pdf
@@ -38,6 +37,9 @@ MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.sb.ppm.neg.after.Rlis
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.sb.ppm.pos.after.Robject
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.seqbias.corrected.neg.Rlist
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.seqbias.corrected.pos.Rlist
+
+#
+MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.after_shendurechr22model.shifted_freq.txt
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22_neg.kmer_freq_after_correction.pdf
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22_pos.kmer_freq_after_correction.pdf
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.ppm
