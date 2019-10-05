@@ -1,0 +1,111 @@
+[1] 9
+[1] "/n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa"
+[1] "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.pos.dedupbam.L20.R20"
+[1] "Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.pos.dedupbam.L20.R2"
+[1] "Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.neg.dedupbam.L20.R20"
+[1] "Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_posbam.posmodel.L20.R20"
+[1] "Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_negbam.negmodel.L20.R20"
+[1] "Obtain seqbias counts and frequencies..."
+class: FaFile 
+path: /n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa
+index: /n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa.fai
+isOpen: TRUE 
+yieldSize: NA 
+GRanges object with 455 ranges and 0 metadata columns:
+                       seqnames         ranges strand
+                          <Rle>      <IRanges>  <Rle>
+    [1]                    chr1 [1, 248956422]      *
+    [2]                   chr10 [1, 133797422]      *
+    [3]                   chr11 [1, 135086622]      *
+    [4] chr11_KI270721v1_random [1,    100316]      *
+    [5]                   chr12 [1, 133275309]      *
+    ...                     ...            ...    ...
+  [451]        chrUn_GL000216v2 [1,    176608]      *
+  [452]        chrUn_GL000218v1 [1,    161147]      *
+  [453]                    chrX [1, 156040895]      *
+  [454]                    chrY [1,  57227415]      *
+  [455]  chrY_KI270740v1_random [1,     37240]      *
+  -------
+  seqinfo: 455 sequences from an unspecified genome
+[1] "setting * strands to +"
+[1] "Scanning input intervals..."
+[1] "finished scanning the input sequences"
+[1] "Getting the reverse complement of negative-stranded sequences"
+[1] "generating read counts matrix for the sequences in the intervals. Binary counts is TRUE"
+[1] "generating k-mer frequencies."
+[1] "Plotting k-mer frequencies"
+class: FaFile 
+path: /n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa
+index: /n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa.fai
+isOpen: TRUE 
+yieldSize: NA 
+GRanges object with 455 ranges and 0 metadata columns:
+                       seqnames         ranges strand
+                          <Rle>      <IRanges>  <Rle>
+    [1]                    chr1 [1, 248956422]      *
+    [2]                   chr10 [1, 133797422]      *
+    [3]                   chr11 [1, 135086622]      *
+    [4] chr11_KI270721v1_random [1,    100316]      *
+    [5]                   chr12 [1, 133275309]      *
+    ...                     ...            ...    ...
+  [451]        chrUn_GL000216v2 [1,    176608]      *
+  [452]        chrUn_GL000218v1 [1,    161147]      *
+  [453]                    chrX [1, 156040895]      *
+  [454]                    chrY [1,  57227415]      *
+  [455]  chrY_KI270740v1_random [1,     37240]      *
+  -------
+  seqinfo: 455 sequences from an unspecified genome
+[1] "setting * strands to -"
+[1] "Scanning input intervals..."
+[1] "finished scanning the input sequences"
+[1] "Getting the reverse complement of negative-stranded sequences"
+[1] "generating read counts matrix for the sequences in the intervals. Binary counts is TRUE"
+[1] "generating k-mer frequencies."
+[1] "Plotting k-mer frequencies"
+[1] "Impose Shendure chr22 model"
+[1] "Impose Buenrostro ATAC-seq model"
+[1] "Generate footprints prior to correction"
+[1] "Generate footprints after correction with Buenrostro ATAC-seq models"
+[1] "Generate footprints after correction with Shendure chr22 models"
+[1] "Generate plots"
+null device 
+          1 
+[1] "Done"
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@clarinet002-059.orchestra>
+Subject: Job 7914414: <Rscript /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/seqbias_atac_orchestra_setmodels.R /n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.pos.sorted.bam /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.neg.sorted.bam /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/intervals/motifs_intersect_macs2peaks/intersect_SRR891268.narrow/JASPAR_core_vertebrate_nonoredundnant/bedfiles/BED6/MA00/MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.bed 9 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo> Done
+
+Job <Rscript /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/seqbias_atac_orchestra_setmodels.R /n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.pos.sorted.bam /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.neg.sorted.bam /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/intervals/motifs_intersect_macs2peaks/intersect_SRR891268.narrow/JASPAR_core_vertebrate_nonoredundnant/bedfiles/BED6/MA00/MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.bed 9 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo> was submitted from host <loge.orchestra> by user <vvv3> in cluster <hms_orchestra>.
+Job was executed on host(s) <clarinet002-059.orchestra>, in queue <short>, as user <vvv3> in cluster <hms_orchestra>.
+</home/vvv3> was used as the home directory.
+</home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/seqbias/seqbias_buenrostro_et_al_2013/JASPAR_core_vertebrate_nonredundant/MA00/MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo> was used as the working directory.
+Started at Mon Dec 19 20:10:49 2016
+Results reported at Mon Dec 19 20:33:07 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+Rscript /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/seqbias_atac_orchestra_setmodels.R /n/data2/mgh/ragon/pillai/referenceGenomes/hg38_ucsc/hg38.fa /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.pos.sorted.bam /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/bamfiles/SRR891268_buenrostro/SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.neg.sorted.bam /home/vvv3/pillaifolder/analysis/tn5_cutsite/buenrostro-et-al-2013/seqbias_correct_footprint/intervals/motifs_intersect_macs2peaks/intersect_SRR891268.narrow/JASPAR_core_vertebrate_nonoredundnant/bedfiles/BED6/MA00/MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.bed 9 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :   1314.95 sec.
+    Max Memory :       710 MB
+    Max Swap   :      1184 MB
+
+    Max Processes  :         3
+    Max Threads    :         4
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <err.txt> for stderr output of this job.
+
