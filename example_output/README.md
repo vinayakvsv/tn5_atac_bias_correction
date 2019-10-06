@@ -13,6 +13,22 @@ MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo
 # the cliplen was set to 4. 
 ```
 
+The script that we have provided to mimic this output with any model of your choice is
+```
+Rscript ./seqbias_atac_orchestra_implement_splines.R \
+<reference FASTA> \
+<positive-stranded BAM> \
+<negative-stranded BAM> \
+<BED file with transcription factor binding site motif instances> \
+<motif length> \
+<name that you wish to give to this job> \
+<positive-strand model> \
+<negative-strand model>
+# the cliplen was set to 4. 
+```
+
+
+
 # Output
 ```
 # files containing footprint stats before footprint
@@ -47,7 +63,7 @@ MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.sb.ppm.pos.after.R
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.seqbias.corrected.neg.Rlist
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.seqbias.corrected.pos.Rlist
 
-# depicts side-by-side plots of the footprint before and after model application
+# depicts side-by-side plots of the footprint before and after model application # we generated this as a separate 
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.footprint.pdf
 
 # depicts the footprint after applying the native-ATAC-seq model, along with spline models fitted to the transposition pattern for occupancy profiling
