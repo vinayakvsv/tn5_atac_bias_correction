@@ -188,7 +188,7 @@ pos_neg_counts <- function(sb.poscounts,
   shifted.freq.list <- shifted.freq$cutsite.freq
   clipbp.list <- shifted.freq$clipbp
   
-  # #3. Plot the result
+  # #3. Plot the result -- uncomment this if you wish, but this is not necessary as the footprint is plotted below
   # pdf(paste(name,"footprint","pdf",sep="."))
   # plot(shifted.freq.list$freq,xaxt="n",type="l",ylab="Cut site probability",xlab="Position from motif")
   # axis(1,at=1:length(shifted.freq.list$freq),labels = shifted.freq.list$pos)
@@ -306,13 +306,13 @@ seqbias_before <- function(ref_seq,
                                      name = paste(name,"neg",sep="_"))
   sb.ppm.neg.before <- make_pwm(freqs = seqbias.inputs.pos$freqs,name = name)
   
-  # #3. save the lists of objects
-  # saveRDS(seqbias.inputs.pos,file = paste(name,"seqbias.inputs.pos","rds",sep="."))
-  # saveRDS(seqbias.inputs.neg,file = paste(name,"seqbias.inputs.neg","rds",sep="."))
-  # 
-  # #4. save the PPM's
-  # saveRDS(sb.ppm.pos.before,file = paste(name,"sb.ppm.pos.before","rds",sep="."))
-  # saveRDS(sb.ppm.neg.before,file = paste(name,"sb.ppm.neg.before","rds",sep="."))
+  #3. save the lists of objects
+  saveRDS(seqbias.inputs.pos,file = paste(name,"seqbias.inputs.pos","rds",sep="."))
+  saveRDS(seqbias.inputs.neg,file = paste(name,"seqbias.inputs.neg","rds",sep="."))
+
+  #4. save the PPM's
+  saveRDS(sb.ppm.pos.before,file = paste(name,"sb.ppm.pos.before","rds",sep="."))
+  saveRDS(sb.ppm.neg.before,file = paste(name,"sb.ppm.neg.before","rds",sep="."))
   
   #5. prepare the output
   posout <- list(seqbias.inputs.pos,sb.ppm.pos.before)
@@ -347,13 +347,13 @@ seqbias_after <- function(seqbias.inputs.pos,
                                          name = paste(name,"neg",sep = "_"))
   sb.ppm.neg.after <- make_pwm(freqs = seqbias.corrected.neg$freqs,name = name)
   
-  # #3. save the lists of objects
-  # saveRDS(seqbias.corrected.pos,file = paste(name,"seqbias.corrected.pos","rds",sep="."))
-  # saveRDS(seqbias.corrected.neg,file = paste(name,"seqbias.corrected.neg","rds",sep="."))
-  # 
-  # #4. save the PPM's
-  # saveRDS(sb.ppm.pos.after,file = paste(name,"sb.ppm.pos.after","rds",sep="."))
-  # saveRDS(sb.ppm.neg.after,file = paste(name,"sb.ppm.neg.after","rds",sep="."))
+  #3. save the lists of objects
+  saveRDS(seqbias.corrected.pos,file = paste(name,"seqbias.corrected.pos","rds",sep="."))
+  saveRDS(seqbias.corrected.neg,file = paste(name,"seqbias.corrected.neg","rds",sep="."))
+
+  #4. save the PPM's
+  saveRDS(sb.ppm.pos.after,file = paste(name,"sb.ppm.pos.after","rds",sep="."))
+  saveRDS(sb.ppm.neg.after,file = paste(name,"sb.ppm.neg.after","rds",sep="."))
   
   #5. prepare the output
   posout <- list(seqbias.corrected.pos,sb.ppm.pos.after)
@@ -468,10 +468,14 @@ motiflen <- args[5] #the motif length
 motiflen <- ceiling(as.numeric(motiflen)) #round the motif length up
 print(motiflen)
 name <- args[6] #the name associated with the job
-cliplen <- args[7]
+posmodel.fn <- args[7]
+negmodel.fn <- args[8]
+# cliplen <- args[7] # this was initially an argument, but 
+cliplen <- 4
 cliplen <- ceiling(as.numeric(cliplen)) #convert the cliplen to a numeric
-#.libPaths( c( .libPaths(), "/n/data2/mgh/ragon/pillai/nonLSFpkgs/R/") )
-.libPaths( c( "/n/data2/mgh/ragon/pillai/nonLSFpkgs/R/") )
+
+
+# .libPaths( c( "/n/data2/mgh/ragon/pillai/nonLSFpkgs/R/") )
 library(Rsamtools)
 library(seqbias)
 library(ggplot2)
@@ -479,32 +483,16 @@ library(rtracklayer)
 library(seqLogo)
 
 #2. Collect the models to be respectively applied to the positive-stranded reads and the negative-stranded reads
-###UPDATE: WE WILL ONLY TRAIN ONE MODEL FOR SHENDURE-CHR22 AND ONE FOR BUENROSTRO. THE MODEL WILL CONSIDER READ START SITE REGARDLESS OF STRAND, AND THE BIAS IS IDENTICAL ON EACH STRAND. MOREOVER, WE WILL NOT SEPARATE BY END (NO R1- OR R2-SPECIFIC MODEL)
-shendure_chr22_model.pos.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.pos.dedupbam.L20.R20"
-print(shendure_chr22_model.pos.fn)
-#shendure_chr22_model.pos.fn <- buenrostropos
-shendure_chr22_model.pos <- seqbias.load(ref_fn = ref_seq,
-                                         model_fn = shendure_chr22_model.pos.fn)
-print("Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.pos.dedupbam.L20.R2")
-#
-shendure_chr22_model.neg.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.neg.dedupbam.L20.R20"
-#shendure_chr22_model.neg.fn <- buenrostroneg
-shendure_chr22_model.neg <- seqbias.load(ref_fn = ref_seq,
-                                         model_fn = shendure_chr22_model.neg.fn)
-print("Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.neg.dedupbam.L20.R20")
-#
-buenrostro_atac_model.pos.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_posbam.posmodel.L20.R20"
-#buenrostro_atac_model.pos.fn <- buenrostropos
-buenrostro_atac_model.pos <- seqbias.load(ref_fn = ref_seq,
-                                          model_fn = buenrostro_atac_model.pos.fn)
-print("Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_posbam.posmodel.L20.R20")
-#
-buenrostro_atac_model.neg.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_negbam.negmodel.L20.R20"
-#buenrostro_atac_model.neg.fn <- buenrostroneg
-buenrostro_atac_model.neg <- seqbias.load(ref_fn = ref_seq,
-                                          model_fn = buenrostro_atac_model.neg.fn)
-print("Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_negbam.negmodel.L20.R20")
+posmodel <- seqbias.load(ref_fn = ref_seq,
+                         model_fn = posmodel.fn)
+print(paste("Loaded positive-strand model at ",posmodel.fn))
 
+#
+negmodel <- seqbias.load(ref_fn = ref_seq,
+                         model_fn = negmodel.fn)
+print(paste("Loaded negative-strand model at ",negmodel.fn))
+
+#
 #3. Get the important seqbias objects prior to any correction
 print("Obtain seqbias counts and frequencies...")
 bincount=TRUE
@@ -516,20 +504,13 @@ before <- seqbias_before(ref_seq = ref_seq,
                          name = paste(name,"beforecorrection",sep="_"))
 
 #4. Impose the corrections from the inputted models and the two hard-coded models: the Shendure chr22 naked DNA model, and the Buenrostro ATAC-seq model
-#The Shendure model
-print("Impose Shendure chr22 model")
-after.shendurechr22model <- seqbias_after(seqbias.inputs.pos = before$pos$seqbias,
+print("Imposing trained Seqbias model...")
+after.model <- seqbias_after(seqbias.inputs.pos = before$pos$seqbias,
                                           seqbias.inputs.neg = before$neg$seqbias,
-                                          posmodel = shendure_chr22_model.pos,
-                                          negmodel = shendure_chr22_model.neg,
-                                          name = paste(name,"postshendurechr22",sep = "_"))
-#The Buenrostro ATAC-seq model
-print("Impose Buenrostro ATAC-seq model")
-after.buenrostromodel <- seqbias_after(seqbias.inputs.pos = before$pos$seqbias,
-                                       seqbias.inputs.neg = before$neg$seqbias,
-                                       posmodel = buenrostro_atac_model.pos,
-                                       negmodel = buenrostro_atac_model.neg,
-                                       name = paste(name,"postbuenrostro",sep = "_"))
+                                          posmodel = posmodel,
+                                          negmodel = negmodel,
+                                          name = paste(name,"seqbiasmodel",sep = "_"))
+print("...model imposed")
 
 #5. Generate counts matrices for the positive and negative stranded objects of the pre- and post-corrected runs. Produce a footprint plot for each. Generate a spline model
 #When adjusting phase, we will need to trim off 4 bases from the positive and negative strands (the latter will also require an additional base trim to account for 9-base overhang that Tn5 imposes)
@@ -558,62 +539,41 @@ write.table(x = before.footprint$cutsite.freq,
             col.names = TRUE)
 before.sb <- c(before,before.footprint,before.footprint.spline)
 saveRDS(before.sb,file = paste(name,"before_correction","rds",sep = "."))
-#After correction with the Buenrostro models
+
+#After correction with the inputed models
 #generate the counts track
-print("Generate footprints after correction with Buenrostro ATAC-seq models")
-after.buenrostromodel.footprint <- pos_neg_counts(sb.poscounts = after.buenrostromodel$pos$seqbias$counts,
-                                                  sb.negcounts = after.buenrostromodel$neg$seqbias$counts,
-                                                  motiflen = motiflen,
-                                                  name = paste(name,"after_buenrostro",sep="."),
-                                                  clipbp=clip)
+print("Generate footprints after correction with inputted models")
+after.model.footprint <- pos_neg_counts(sb.poscounts = after.model$pos$seqbias$counts,
+                                        sb.negcounts = after.model$neg$seqbias$counts,
+                                        motiflen = motiflen,
+                                        name = paste(name,"after_model",sep="."),
+                                        clipbp=clip)
 #create a spline model
-after.buenrostromodel.spline <- measure_deflection.spline(footprint = after.buenrostromodel.footprint$cutsite.freq,
-                                                     name = paste(name,"after_buenrostro",sep="."),
-                                                     motiflen = motiflen,
-                                                     nonmotiflen = nonmotiflen)
+after.model.spline <- measure_deflection.spline(footprint = after.model.footprint$cutsite.freq,
+                                                name = paste(name,"after_model",sep="."),
+                                                motiflen = motiflen,
+                                                nonmotiflen = nonmotiflen)
 #write the counts track to an output
-write.table(x = after.buenrostromodel.footprint$cutsite.freq,
-            file = paste(name,"after_buenrostromodel","shifted_freq","txt",sep = "."),
+write.table(x = after.model.footprint$cutsite.freq,
+            file = paste(name,"after_model","shifted_freq","txt",sep = "."),
             quote = FALSE,sep = "\t",
             row.names = TRUE,
             col.names = TRUE)
-after.buenrostromodel.sb <- c(after.buenrostromodel,after.buenrostromodel.footprint,after.buenrostromodel.spline)
-saveRDS(after.buenrostromodel.sb,file = paste(name,"after_buenrostro","rds",sep = "."))
-#After correction with the Shendure chr22 model
-print("Generate footprints after correction with Shendure chr22 models")
-after.shendurechr22model.footprint <- pos_neg_counts(sb.poscounts = after.shendurechr22model$pos$seqbias$counts,
-                                                     sb.negcounts = after.shendurechr22model$neg$seqbias$counts,
-                                                     motiflen = motiflen,
-                                                     name = paste(name,"after_shendurechr22",sep="."),
-                                                     clipbp=clip)
-#create a spline model
-after.shendurechr22model.spline <- measure_deflection.spline(footprint = after.shendurechr22model.footprint$cutsite.freq,
-                                                          name = paste(name,"after_shendurechr22",sep="."),
-                                                          motiflen = motiflen,
-                                                          nonmotiflen = nonmotiflen)
-#write the counts track to an output
-write.table(x = after.shendurechr22model.footprint$cutsite.freq,
-            file = paste(name,"after_shendurechr22model","shifted_freq","txt",sep = "."),
-            quote = FALSE,sep = "\t",
-            row.names = TRUE,
-            col.names = TRUE)
-after.shendurechr22model.sb <- c(after.shendurechr22model,after.shendurechr22model.footprint,after.shendurechr22model.spline)
-saveRDS(after.shendurechr22model.sb,file = paste(name,"after_shendurechr22","rds",sep = "."))
+after.model.sb <- c(after.buenrostromodel,after.model.footprint,after.model.spline)
+saveRDS(after.model.sb,file = paste(name,"after_model","rds",sep = "."))
 
 #6. Plot
 #indicate the motif boundaries
-print(before.footprint$clipbp)
+
+#
 vline1 <- 100-before.footprint$clipbp-2+1
 vline2 <- 100-before.footprint$clipbp-2+motiflen
-#old
-#These are correct...NOTE: The non-motif sequences go from indices 1 to 95. So, the motif starts at position 96, not 97!
-#abline(v = 97,lty=2)
-#abline(v = 96+motiflen,lty=2)
-print(vline1)
-print(vline2)
+
+#
 print("Generate plots")
 pdf(paste(name,"footprint","pdf",sep = "."),width = 28,height = 7)
-par(mfrow=c(1,3))
+par(mfrow=c(1,2))
+
 #Before correction
 plot(before.footprint$cutsite.freq$freq,
      xaxt="n",
@@ -625,23 +585,18 @@ plot(before.footprint$cutsite.freq$freq,
      main="Before Correction")
 abline(v = c(vline1,vline2),lty=2)
 legend("topright",legend = c("before","after"),col = c("red","blue"),lty = 2)
-#After correction with Shendure models
-plot(after.shendurechr22model.footprint$cutsite.freq$freq,
+
+#After correction with inputted models
+plot(after.model.footprint$cutsite.freq$freq,
      xaxt="n",
      type="l",
      ylim=c(0,0.03),
      col="blue",
-     main="Shendure SRR1554094\nchr22 WGS model")
+     main=paste("Inputted seqbias model\nfor",posmodel.fn,"and\n",negmodel.fn,))
 abline(v = c(vline1,vline2),lty=2)
-#After correction with Buenrostro models
-plot(after.buenrostromodel.footprint$cutsite.freq$freq,
-     xaxt="n",
-     type="l",
-     ylim=c(0,0.03),
-     col="blue",
-     main="Buenrostro SRR891268\nATAC-seq model ")
-abline(v = c(vline1,vline2),lty=2)
+
 #turn off the device
 dev.off()
 print("Done")
+
 #Done
