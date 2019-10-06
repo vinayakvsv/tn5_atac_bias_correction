@@ -39,39 +39,7 @@ This script will automatically compute transposition frequencies for 100 bases o
 
 ## Outputs
 
-In this sample run with the ETS transcription factor motif, we obtained the following output when applying our Buenrostro and Shendure models: 
+In this sample run with the ETS transcription factor motif, we obtained the output in `example_output/` when applying our Buenrostro and Shendure models -- please see the folder for an example. 
 
-```
-# files containing footprint stats before footprint
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection_neg.kmer_freq_before_correction.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection_pos.kmer_freq_before_correction.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.ppm
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.sb.ppm.neg.before.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.sb.ppm.pos.before.Robject
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.seqbias.inputs.neg.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_beforecorrection.seqbias.inputs.pos.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.before_correction.shifted_freq.txt
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimobefore.footprint.pdf
-
-# 
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.after_buenrostromodel.shifted_freq.txt
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimoafter.footprint.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.after_shendurechr22model.shifted_freq.txt
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.footprint.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro_neg.kmer_freq_after_correction.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro_pos.kmer_freq_after_correction.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.ppm
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.sb.ppm.neg.after.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.sb.ppm.pos.after.Robject
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.seqbias.corrected.neg.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postbuenrostro.seqbias.corrected.pos.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22_neg.kmer_freq_after_correction.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22_pos.kmer_freq_after_correction.pdf
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.ppm
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.sb.ppm.neg.after.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.sb.ppm.pos.after.Robject
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.seqbias.corrected.neg.Rlist
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.seqbias.corrected.pos.Rlist
-```
 
 
