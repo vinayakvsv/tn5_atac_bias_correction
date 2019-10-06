@@ -1,6 +1,6 @@
 # Introduction
 
-We ran the following script -- we used a version of the Rscript in which we hardcoded the input of models (this script is available in our `correct_bias` folder
+We ran the following script on a UNIX cluster in which we hardcoded the input of models as the Shendure-chr22 model and the Buenrostro whole-ATAC-seq model (this script is available in our `correct_bias` folder). 
 
 ```
 Rscript ./seqbias_atac_orchestra_setmodels.R \
@@ -12,8 +12,9 @@ MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.bed \
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo
 # the cliplen was set to 4. 
 ```
+The output is below under *Output*
 
-The script that we have provided to mimic this output with any model of your choice is
+The version that you can run to generate similar outputs (seqbias correction, footprints, and spline model) is
 ```
 Rscript ./seqbias_atac_orchestra_implement_splines.R \
 <reference FASTA> \
@@ -24,7 +25,6 @@ Rscript ./seqbias_atac_orchestra_implement_splines.R \
 <name that you wish to give to this job> \
 <positive-strand model> \
 <negative-strand model>
-# the cliplen was set to 4. 
 ```
 
 
