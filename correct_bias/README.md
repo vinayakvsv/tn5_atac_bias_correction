@@ -31,10 +31,10 @@ We recommend that you test all motifs in the JASPAR core vertebrate transcriptio
 
 ## Command
 
-We have provided a single R-script to implement a model of interest and compute differences in the before- and after-correction transposition tracks. Note that we require two models, one for the positive-stranded reads and one for the negative stranded reads. Given our observation that the Tn5 bias is identical for positive and negative strands, you can input the same model for those options
+We have provided a single R-script to implement a model of interest, compute differences in the before- and after-correction transposition tracks, and fit a spline model so that deflections can be computed (our measure of genome-wide occupancy). Note that we require two models, one for the positive-stranded reads and one for the negative stranded reads. Given our observation that the Tn5 bias is identical for positive and negative strands, you can input the same model for those options. 
 
 ```
-Rscript ./seqbias_atac_implement.R \
+Rscript ./seqbias_atac_implement_splines.R \
 <reference genome FASTA> \
 <positive-strand BAM> \
 <negative-strand BAM> \
@@ -49,7 +49,7 @@ This script will automatically compute transposition frequencies for 100 bases o
 
 ## Outputs
 
-In this sample run with the ETS transcription factor motif, we obtained the output in `example_output/` when applying our Buenrostro and Shendure models -- please see the folder for an example. 
+In this sample run with the ETS transcription factor motif, we obtained the output in `example_output/` when applying our Buenrostro and Shendure models for a variant of the above command -- please see the folder for an example. 
 
 
 
