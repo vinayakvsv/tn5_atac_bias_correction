@@ -422,6 +422,7 @@ seqbias_after <- function(seqbias.inputs.pos,seqbias.inputs.neg,posmodel,negmode
 }
 #
 #####
+#
 #MAIN
 #1. Take in command-line input and set the source of the libraries
 args <- commandArgs(trailingOnly=TRUE)
@@ -435,23 +436,17 @@ print(motiflen)
 name <- args[6] #the name associated with the job
 posmodel <- args[7]
 negmodel <- args[8]
-#shendurepos <- args[9]
-#shendureneg <- args[10]
-#buenrostropos <- args[11]
-#buenrostroneg <- args[12]
 #
-#.libPaths( c( .libPaths(), "/n/data2/mgh/ragon/pillai/nonLSFpkgs/R/") )
-.libPaths( c( "/n/data2/mgh/ragon/pillai/nonLSFpkgs/R/") )
+# package loads
 library(Rsamtools)
 library(seqbias)
 library(ggplot2)
 library(rtracklayer)
 library(seqLogo)
+
 #
 #2. Collect the models to be respectively applied to the positive-stranded reads and the negative-stranded reads
-print(ref_seq)
-#posmodel.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.pos.dedupbam.L20.R20"
-#negmodel.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.neg.dedupbam.L20.R20"
+print(paste('reference sequence:',ref_seq))
 #
 posmodel.fn <- posmodel
 negmodel.fn <- negmodel
@@ -459,33 +454,10 @@ print(posmodel.fn)
 print(negmodel.fn)
 posmodel <- seqbias.load(ref_fn = ref_seq, model_fn = posmodel.fn)
 negmodel <- seqbias.load(ref_fn = ref_seq, model_fn = negmodel.fn)
-#
-shendure_chr22_model.pos.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.pos.dedupbam.L20.R20"
-#shendure_chr22_model.pos.fn <- buenrostropos
-shendure_chr22_model.pos <- seqbias.load(ref_fn = ref_seq,
-                                         model_fn = shendure_chr22_model.pos.fn)
-print("Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.pos.dedupbam.L20.R2")
-#
-shendure_chr22_model.neg.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.neg.dedupbam.L20.R20"
-#shendure_chr22_model.neg.fn <- buenrostroneg
-shendure_chr22_model.neg <- seqbias.load(ref_fn = ref_seq,
-                                         model_fn = shendure_chr22_model.neg.fn)
-print("Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/shendure.chr22.neg.dedupbam.L20.R20")
-#
-buenrostro_atac_model.pos.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_posbam.posmodel.L20.R20"
-#buenrostro_atac_model.pos.fn <- buenrostropos
-buenrostro_atac_model.pos <- seqbias.load(ref_fn = ref_seq,
-                                         model_fn = buenrostro_atac_model.pos.fn)
-print("Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_posbam.posmodel.L20.R20")
-#
-buenrostro_atac_model.neg.fn <- "/n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_negbam.negmodel.L20.R20"
-#buenrostro_atac_model.neg.fn <- buenrostroneg
-buenrostro_atac_model.neg <- seqbias.load(ref_fn = ref_seq,
-                                          model_fn = buenrostro_atac_model.neg.fn)
-print("Loaded /n/data2/mgh/ragon/pillai/pipelines/quality-control_pipeline/seqbias/sb.buenrostro_SRR891268_atac_dedup_negbam.negmodel.L20.R20")
-#
-bincount=TRUE
+# 
 #3. Get the important seqbias objects prior to any correction
+# set bincount for seqbias
+bincount=TRUE
 print("Obtain seqbias counts and frequencies...")
 before <- seqbias_before(ref_seq = ref_seq,
                          posbam = sample_bam_pos,
@@ -502,63 +474,7 @@ after.inputmodel <- seqbias_after(seqbias.inputs.pos = before$pos$seqbias,
                        posmodel = posmodel,
                        negmodel = negmodel,
                        name = paste(name,"postinputted",sep = "_"))
-#The Shendure model
-print("Impose Shendure chr22 model")
-after.shendurechr22model <- seqbias_after(seqbias.inputs.pos = before$pos$seqbias,
-                                  seqbias.inputs.neg = before$neg$seqbias,
-                                  posmodel = shendure_chr22_model.pos,
-                                  negmodel = shendure_chr22_model.neg,
-                                  name = paste(name,"postshendurechr22",sep = "_"))
-#The Buenrostro ATAC-seq model
-print("Impose Buenrostro ATAC-seq model")
-after.buenrostromodel <- seqbias_after(seqbias.inputs.pos = before$pos$seqbias,
-                                       seqbias.inputs.neg = before$neg$seqbias,
-                                       posmodel = buenrostro_atac_model.pos,
-                                       negmodel = buenrostro_atac_model.neg,
-                                       name = paste(name,"postbuenrostro",sep = "_"))
-#####
-# #3. Positive strand
-# # Starting with the positive strand reads, collect the input interval sequences, the nucleotide frequencies, and the read start counts in each interval. Generate a PPM.
-# seqbias.inputs.pos <- seqbias_atac(ref_seq=ref_seq,
-#                                    input_intervals=input_intervals,
-#                                    sample_bam=sample_bam_pos,
-#                                    binarycount = bincount,
-#                                    indet_strands = "+",
-#                                    name = paste(name,"pos",sep="_"))
-# sb.ppm.pos.before <- make_pwm(freqs = seqbias.inputs.pos$freqs,name = name)
-# save(seqbias.inputs.pos,file = paste(name,"seqbias.inputs.pos","Rlist",sep="."))
-# save(sb.ppm.pos.before,file = paste(name,"sb.ppm.pos.before","Robject",sep="."))
-# # Apply the positive-strand correction and generate a PPM of the result
-# seqbias.corrected.pos <- estimate_bias(sb=posmodel,
-#                                        I=seqbias.inputs.pos$"I",
-#                                        seqs=seqbias.inputs.pos$"seqs",
-#                                        counts=seqbias.inputs.pos$"counts",
-#                                        name = paste(name,"pos",sep="_"))
-# sb.ppm.pos.after <- make_pwm(freqs = seqbias.corrected.pos$freqs.adj,name = name)
-# save(seqbias.corrected.pos,file = paste(name,"seqbias.corrected.pos","Rlist",sep="."))
-# save(sb.ppm.pos.after,file = paste(name,"sb.ppm.pos.after","Robject",sep="."))
-# #
-# #4. Negative strand
-# seqbias.inputs.neg <- seqbias_atac(ref_seq=ref_seq,
-#                                    input_intervals=input_intervals,
-#                                    sample_bam=sample_bam_neg,
-#                                    binarycount = bincount,
-#                                    indet_strands = "-",
-#                                    name = paste(name,"neg",sep="_"))
-# sb.ppm.neg.before <- make_pwm(freqs = seqbias.inputs.pos$freqs,name = name)
-# save(seqbias.inputs.neg,file = paste(name,"seqbias.inputs.neg","Rlist",sep="."))
-# save(sb.ppm.neg.before,file = paste(name,"sb.ppm.neg.before","Rlist",sep="."))
-# # Apply the negative-strand correction and generate a PPM of the result
-# seqbias.corrected.neg <- estimate_bias(sb=negmodel,
-#                                        I=seqbias.inputs.neg$"I",
-#                                        seqs=seqbias.inputs.neg$"seqs",
-#                                        counts=seqbias.inputs.neg$"counts",
-#                                        name = paste(name,"neg",sep = "_"))
-# sb.ppm.neg.after <- make_pwm(freqs = seqbias.corrected.neg$freqs.adj,name = name)
-# save(seqbias.corrected.neg,file = paste(name,"seqbias.corrected.neg","Rlist",sep="."))
-# save(sb.ppm.neg.after,file = paste(name,"sb.ppm.neg.after","Rlist",sep="."))
-# #
-#####
+
 #5. Generate counts matrices for the positive and negative stranded objects of the pre- and post-corrected runs. Produce a footprint plot for each
 #Before correction
 print("Generate footprints prior to correction")
@@ -582,37 +498,6 @@ write.table(x = after.inputmodel.footprint,
             quote = FALSE,sep = "\t",
             row.names = TRUE,
             col.names = TRUE)
-#After correction with the Buenrostro models
-print("Generate footprints after correction with Buenrostro ATAC-seq models")
-after.buenrostromodel.footprint <- pos_neg_counts(sb.poscounts = after.buenrostromodel$pos$seqbias$counts,
-                                             sb.negcounts = after.buenrostromodel$neg$seqbias$counts,
-                                             motiflen = motiflen,
-                                             name = paste(name,"after",sep=""))
-write.table(x = after.buenrostromodel.footprint,
-            file = paste(name,"after_buenrostromodel","shifted_freq","txt",sep = "."),
-            quote = FALSE,sep = "\t",
-            row.names = TRUE,
-            col.names = TRUE)
-#After correction with the Shendure chr22 model
-print("Generate footprints after correction with Shendure chr22 models")
-after.shendurechr22model.footprint <- pos_neg_counts(sb.poscounts = after.shendurechr22model$pos$seqbias$counts,
-                                             sb.negcounts = after.shendurechr22model$neg$seqbias$counts,
-                                             motiflen = motiflen,
-                                             name = paste(name,"after",sep=""))
-write.table(x = after.shendurechr22model.footprint,
-            file = paste(name,"after_shendurechr22model","shifted_freq","txt",sep = "."),
-            quote = FALSE,sep = "\t",
-            row.names = TRUE,
-            col.names = TRUE)
-# after.footprint <- pos_neg_counts(sb.poscounts = after.shendurechr22model$seqbias$counts,
-#                                   sb.negcounts = seqbias.corrected.neg$counts,
-#                                   motiflen = motiflen,
-#                                   name = paste(name,"after",sep=""))
-# write.table(x = after.footprint,
-#             file = paste(name,"after_correction","shifted_freq","txt",sep = "."),
-#             quote = FALSE,sep = "\t",
-#             row.names = TRUE,
-#             col.names = TRUE)
 #Plot
 print("Generate plots")
 pdf(paste(name,"footprint","pdf",sep = "."),width = 28,height = 7)
@@ -626,9 +511,7 @@ plot(before.footprint$freq,
      ylim=c(0,0.03),
      col="red",
      main="Before Correction")
-##These lines are off...
-#abline(v = 97,lty=2)
-#abline(v = 96+motiflen,lty=2)
+
 #These are correct...NOTE: 
 abline(v = 96,lty=2)
 abline(v = 95+motiflen,lty=2)
@@ -640,40 +523,12 @@ plot(after.inputmodel.footprint$freq,
      ylim=c(0,0.03),
      col="blue",
      main="Shendure SRR1554094\nmotif interval coverage model")
-# abline(v = 97,lty=2)
-# abline(v = 96+motiflen,lty=2)
-#These are correct...
-abline(v = 96,lty=2)
-abline(v = 95+motiflen,lty=2)
-#After correction with Shendure models
-plot(after.shendurechr22model.footprint$freq,
-     xaxt="n",
-     type="l",
-     ylim=c(0,0.03),
-     col="blue",
-     main="Shendure SRR1554094\nchr22 WGS model")
-# abline(v = 97,lty=2)
-# abline(v = 96+motiflen,lty=2)
-#These are correct...
-abline(v = 96,lty=2)
-abline(v = 95+motiflen,lty=2)
-#After correction with Buenrostro models
-plot(after.buenrostromodel.footprint$freq,
-     xaxt="n",
-     type="l",
-     ylim=c(0,0.03),
-     col="blue",
-     main="Buenrostro SRR891268\nATAC-seq model ")
-# abline(v = 97,lty=2)
-# abline(v = 96+motiflen,lty=2)
-#These are correct...
-abline(v = 96,lty=2)
-abline(v = 95+motiflen,lty=2)
+
 #turn off the device
 dev.off()
 print("Done")
 #
-# save(seqbias.inputs,file = "seqbias.inputs.Robject")
-# seqbias.save(sb = sb.model,fn = "sb.model.sbobject")
-# save(seqbias.corrected,file = "seqbias.corrected.Robject")
-#plot(sb.buenrostro_SRR891268_bam_pos.mef2c_genomewide.binT.counts$sb.counts.sum[c(1:106)]+rev(sb.buenrostro_SRR891268_bam_neg.mef2c_genomewide.binT.counts$sb.counts.sum)[c(6:111)],type="l")
+save(seqbias.inputs,file = "seqbias.inputs.Robject") # saves the seqbias inputs
+seqbias.save(sb = sb.model,fn = paste0(name,"_sb.model.sbobject")) # saves the seqbias model that you used for your run
+save(seqbias.corrected,file = "seqbias.corrected.Robject") # saves the seqbias-corrected object
+
