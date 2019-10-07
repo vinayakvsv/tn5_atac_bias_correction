@@ -19,6 +19,7 @@ seqbias_atac <- function(input_intervals,
   require(seqbias)
   require(ggplot2)
   require(rtracklayer)
+  require(GenomicRanges)
   
   #2. Set the reference sequence--a FASTA file--and the alignments--a BAM file
   ref_fn <- ref_seq
@@ -27,11 +28,12 @@ seqbias_atac <- function(input_intervals,
   #3. Open the reference
   print(ref_fn)
   ref_f <- FaFile( ref_fn)
+  # ref_f <- scanFa( ref_fn)
   open.FaFile( ref_f )
   print(ref_f)
   
   #4. Extract the sequences in the reference and take a random sample of n sequences that are m bases long
-  ref_seqs <- scanFaIndex( ref_f )
+  # ref_seqs <- scanFaIndex( ref_f ,as=c("GRangesList", "GRanges")) # this is throwing an error...
   print(ref_seqs)
   #input_intervals is a BED file with the genomic intervals in which you would like to correct for count biases
   I <- import(con = input_intervals)
