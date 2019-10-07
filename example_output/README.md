@@ -9,8 +9,9 @@ SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.pos.so
 SRR891268.atac-seq.bowtie2.q10filtered.sorted.hg38-autosom-sex-chr.sorted.neg.sorted.bam \
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.bed \
 9 \
-MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo
-# the cliplen was set to 4. 
+MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo \
+4
+# the cliplen was set to 4. The motif length is 9 bases. 
 ```
 The output is below under *Output*
 
@@ -26,7 +27,6 @@ Rscript ./seqbias_atac_orchestra_implement_splines.R \
 <positive-strand model> \
 <negative-strand model>
 ```
-
 
 
 # Output
@@ -63,7 +63,7 @@ MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.sb.ppm.pos.after.R
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.seqbias.corrected.neg.Rlist
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo_postshendurechr22.seqbias.corrected.pos.Rlist
 
-# depicts side-by-side plots of the footprint before and after model application # we generated this as a separate 
+# depicts side-by-side plots of the footprint before and after model application
 MA0098.3_ETS1.motif.meme.fimo_out.BED6.fimo.footprint.pdf
 
 # depicts the footprint after applying the native-ATAC-seq model, along with spline models fitted to the transposition pattern for occupancy profiling
