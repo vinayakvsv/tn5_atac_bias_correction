@@ -34,7 +34,7 @@ seqbias_atac <- function(input_intervals,
   
   #4. Extract the sequences in the reference and take a random sample of n sequences that are m bases long
   # ref_seqs <- scanFaIndex( ref_f ,as=c("GRangesList", "GRanges")) # this is throwing an error...
-  print(ref_seqs)
+  # print(ref_seqs)
   #input_intervals is a BED file with the genomic intervals in which you would like to correct for count biases
   I <- import(con = input_intervals)
   #If the strand is indeterminate (i.e. strand is "*"), set it to the value specified in indet_strands
