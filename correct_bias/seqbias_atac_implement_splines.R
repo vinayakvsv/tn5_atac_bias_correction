@@ -25,6 +25,7 @@ seqbias_atac <- function(input_intervals,
   reads_fn <- sample_bam
   
   #3. Open the reference
+  print(ref_fn)
   ref_f <- FaFile( ref_fn)
   open.FaFile( ref_f )
   print(ref_f)
